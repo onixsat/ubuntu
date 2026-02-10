@@ -6,12 +6,12 @@
   <a id="readme-top"></a>
 </div>
 <details>
-  <summary>Menu de NevegaÃ§Ã£o</summary>
+  <summary>Menu de Nevegação</summary>
   <ol>
-    <li><a href="#INSTALAR">InstalaÃ§Ã£o</a></li>
+    <li><a href="#INSTALAR">Instalação</a></li>
     <li><a href="#PASSWORDS">Passwords</a></li>
     <li>
-      <a href="#CODIGOS">CÃ³digos</a>
+      <a href="#CODIGOS">Códigos</a>
       <ul>
           <li><a href="#CMDS">Comandos</a></li>
         <li><a href="#BLOQUEAR">Bloquear</a></li>
@@ -25,7 +25,7 @@
 
 <div id="INSTALAR">
 
-<h2 style="font-style:italic;">ðŸ› ï¸ InstalaÃ§Ã£o</h2>
+<h2 style="font-style:italic;">Instalação</h2>
 <h6 style="font-style:italic;">Executar os comandos para instalar o sistema.</h6>
 
 ```bash
@@ -38,12 +38,12 @@
  ```
 
 <sm style="font-style:italic;">
-  Ao iniciar vai criar o ficheiro de configuraÃ§Ã£o seguro em <a href="config/config.sh.enc">config/config.sh.enc</a>
+  Ao iniciar vai criar o ficheiro de configuração seguro em <a href="config/config.sh.enc">config/config.sh.enc</a>
   <br>
   Ao iniciar novamente digite a sua password para desencriptar o ficheiro seguro localmente e iniciar o programa.
   <br>
   
-  _Nota: O arquivo descodificado serÃ¡ eliminado da maquina local quando desligar o terminal._
+  _Nota: O arquivo descodificado será eliminado da maquina local quando desligar o terminal._
 
 </sm>
 
@@ -52,21 +52,21 @@
 <details id="PASSWORDS">
   <summary><h4 style="font-style:italic;">ðŸ“« Default Passwords</h4></summary>
 
-*Passwords padrÃ£o na configuraÃ§Ã£o do sistema.*
+*Passwords padrão na configuração do sistema.*
 
 <sub>[ [SSH](root) Username: $\textcolor{green}{\textsf{root}}\$ ]  $\textcolor{cyan}{\textsf{Password+2024}}$</sub>\
-<sup>[ [EncriptaÃ§Ã£o](root) $\textcolor{green}{\textsf{Sistema}}\$ ] $\textcolor{cyan}{\textsf{12345}}$</sup>
+<sup>[ [Encriptação](root) $\textcolor{green}{\textsf{Sistema}}\$ ] $\textcolor{cyan}{\textsf{12345}}$</sup>
 </details>
 
 <details id="CODIGOS">
-  <summary><h2 style="font-style:italic;">ðŸš€ CÃ³digos</h2></summary>
+  <summary><h2 style="font-style:italic;">Códigos</h2></summary>
 
-_CÃ³digos de script bÃ¡sicos para utilizaÃ£o na shell linux._
+_Códigos de script básicos para utilização na shell linux._
 
 <div id="BLOQUEAR">
 
 * __Bloquear__\
-  *Bloquear alteraÃ§Ã£o de ficheiros*
+  *Bloquear alteração de ficheiros*
 
   ```bash
   chattr -i /etc/mailips
@@ -121,7 +121,7 @@ _CÃ³digos de script bÃ¡sicos para utilizaÃ£o na shell linux._
 
 
 
-_CÃ³digos de script bÃ¡sicos para utilizaÃ£o na shell linux._
+_Códigos de script bÃ¡sicos para utilizaÃ£o na shell linux._
 ---
 
 <div id="CMDS">
