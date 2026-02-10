@@ -30,8 +30,8 @@
 
 ```bash
   sudo su
-  sudo yum update -y
-  sudo yum install -y git nano wget
+  sudo apt update -y
+  sudo apt install -y git nano wget
   git clone https://github.com/onixsat/ubuntu.git
   cd ubuntu
   bash btk.sh
