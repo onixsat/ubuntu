@@ -32,8 +32,8 @@
   sudo su
   sudo yum update -y
   sudo yum install -y git nano wget
-  git clone https://github.com/onixsat/stream.git
-  cd stream
+  git clone https://github.com/onixsat/ubuntu.git
+  cd ubuntu
   bash btk.sh
  ```
 
@@ -50,7 +50,7 @@
 </div>
 
 <details id="PASSWORDS">
-  <summary><h4 style="font-style:italic;">ðŸ“« Default Passwords</h4></summary>
+  <summary><h4 style="font-style:italic;">Default Passwords</h4></summary>
 
 *Passwords padrão na configuração do sistema.*
 
