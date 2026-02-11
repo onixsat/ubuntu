@@ -21,6 +21,7 @@ function cmd1(){
  
     rnd_count=$((RANDOM % ( 8089 - 8080 + 1 ) + 8080 )); ## get a random value using /dev/urandom
 	ipaddr=$(curl v4.ident.me)
+	sudo ufw allow ${rnd_count}/tcp
 	php -S ${ipaddr}:${rnd_count} >/dev/null 2>&1 &
 
     if [ $? -eq 0 ]; then
