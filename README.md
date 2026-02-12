@@ -1,8 +1,8 @@
 <div align="center">
   <a href="https://onixsat">
-    <img src="logo.png" alt="Logo" width="300">
+    <img src="config/logo.png" alt="Logo" width="300">
   </a>
-  <img src="waves.svg" width="100%" height="100">
+  <img src="config/waves.svg" width="100%" height="100">
   <a id="readme-top"></a>
 </div>
 <details>
