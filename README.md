@@ -619,7 +619,7 @@ Document in [MSON][].
 
 *Texto*
 Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
-<p>And here is <a href="http://example.com" target="_blank">my body link</a></p>
+<p>Ver info <a href="editor/info.html" target="_blank"> neste link</a></p>
 </details>
 
 
