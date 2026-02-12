@@ -626,6 +626,11 @@ item: "This is (my frontmatter link)[link]{target='_blank'}"
 ---
 And here is (my body link)[link]{target='_blank'}
 
+
+<p>This is <a href="link">my frontmatter link</a>{target='_blank'}</p>
+<p>And here is <a href="link" target='_blank'>my body link</a></p>
+
+
 </details>
 
 
