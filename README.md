@@ -617,7 +617,7 @@ Document in [MSON][].
   <summary><h4 style="font-style:italic;">Texto</h4></summary>
 
 *Texto*
-<p>Ver info <a href="config/info.html" target="_blank"> neste link</a></p>
+<p>Ver info <a href="config/info.htm" target="_blank"> neste link</a></p>
 
 </details>
 
