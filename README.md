@@ -620,6 +620,436 @@ Document in [MSON][].
 *Texto*
 Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
 <p>Ver info <a href="editor/info.html" target="_blank"> neste link</a></p>
+
+
+
+
+**Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"**
+
+Saiba por que a Nginx responde a qualquer nome de domínio e como configurar um bloco de servidor padrão adequado para controlar quais domínios seu servidor aceita, melhorando a segurança e impedindo indesejados tráfego.
+
+**Nesta página**
+
+[Por que isso acontece](#why-this-happens)
+
+[A Configuração do Problema](#the-problem-configuration)
+
+[Solução 1: Crie um Bloco de Servidor Padrão Catch-All](#solution-1-create-a-default-catch-all-server-block)
+
+[Solução 2: Retornar uma resposta de erro adequada](#solution-2-return-a-proper-error-response)
+
+[Solução 3: Definir Explicitamente Os Blocos Do Servidor](#solution-3-explicitly-define-your-server-blocks)
+
+[Gerando um certificado auto-assinado para HTTPS padrão](#generating-a-self-signed-certificate-for-default-https)
+
+[Exemplo de configuração completo](#complete-configuration-example)
+
+[Verificando sua configuração](#verifying-your-configuration)
+
+[Monitorando Solicitações de Domínio Desconhecido](#monitoring-unknown-domain-requests)
+
+[Considerações de Segurança](#security-considerations)
+
+[Erros Comuns a Evitar](#common-mistakes-to-avoid)
+
+[Resumo](#summary)
+
+[Por que isso acontece](#why-this-happens)
+
+[A Configuração do Problema](#the-problem-configuration)
+
+[Solução 1: Criar um Bloco Padrão de Servidores Abrangente](#solution-1-create-a-default-catch-all-server-block)
+
+[Solução 2: Devolver uma resposta de erro adequada](#solution-2-return-a-proper-error-response)
+
+[Solução 3: Defina explicitamente seus blocos de servidor](#solution-3-explicitly-define-your-server-blocks)
+
+[Gerando um Certificado Autoassinado para HTTPS padrão](#generating-a-self-signed-certificate-for-default-https)
+
+[Exemplo completo de configuração](#complete-configuration-example)
+
+[Verificando sua configuração](#verifying-your-configuration)
+
+[Monitorando Solicitações de Domínio Desconhecido](#monitoring-unknown-domain-requests)
+
+[Considerações de Segurança](#security-considerations)
+
+[Erros Comuns a Evitar](#common-mistakes-to-avoid)
+
+[Resumo](#summary)
+
+[Por que isso acontece](#why-this-happens)
+
+[A Configuração do Problema](#the-problem-configuration)
+
+[Solução 1: Criar um Bloco Padrão de Servidores Abrangente](#solution-1-create-a-default-catch-all-server-block)
+
+[Solução 2: Devolver uma resposta de erro adequada](#solution-2-return-a-proper-error-response)
+
+[Solução 3: Defina explicitamente seus blocos de servidor](#solution-3-explicitly-define-your-server-blocks)
+
+[Gerando um Certificado Autoassinado para HTTPS padrão](#generating-a-self-signed-certificate-for-default-https)
+
+[Exemplo completo de configuração](#complete-configuration-example)
+
+[Verificando sua configuração](#verifying-your-configuration)
+
+[Monitorando Solicitações de Domínio Desconhecido](#monitoring-unknown-domain-requests)
+
+[Considerações de Segurança](#security-considerations)
+
+[Erros Comuns a Evitar](#common-mistakes-to-avoid)
+
+[Resumo](#summary)
+
+Quando você aponta um novo domínio para o seu servidor Nginx e de repente serve o seu site sem qualquer configuração, pode ser confuso e preocupante. Esse comportamento acontece por causa de como o Nginx seleciona blocos de servidores para lidar com solicitações. Compreender e controlar isso é essencial para segurança e gestão adequada do tráfego.
+
+**Por que isso acontece**
+
+Categoria: Nginx usa blocos de servidor (semelhantes aos hosts virtuais do Apache) para determinar como para lidar com solicitações recebidas. Quando uma solicitação chega, o Nginx corresponde contra o diretivas. Se nenhuma correspondência for encontrada, o Nginx usa o servidor padrão - que pode estar servindo seu conteúdo sem querer.server_name
+
+**A Configuração do Problema**
+
+Aqui está uma configuração típica que causa esse problema:
+
+\# /etc/nginx/sites-enabled/mysite.conf
+
+server {
+
+listen 80;
+
+server_name mysite.com www.mysite.com;
+
+root /var/www/mysite;
+
+index index.html;
+
+location / {
+
+try_files $uri $uri/ =404;
+
+}
+
+}
+
+Com essa configuração, se alguém apontar para o IP do seu servidor, o Nginx servirá seu site porque não há um servidor padrão explícito definido.random-domain.com
+
+**Solução 1: Criar um Bloco Padrão de Servidores Abrangente**
+
+A melhor prática é criar um servidor padrão explícito que rejeite ou redirecione domínios desconhecidos:
+
+\# /etc/nginx/sites-enabled/00-default.conf
+
+\# This file is named with 00- to ensure it loads first
+
+server {
+
+listen 80 default_server;
+
+listen \[::\]:80 default_server;
+
+server_name \_;
+
+\# Return 444 - Nginx specific: close connection without response
+
+return 444;
+
+}
+
+server {
+
+listen 443 ssl default_server;
+
+listen \[::\]:443 ssl default_server;
+
+server_name \_;
+
+\# Self-signed certificate for rejecting unknown domains
+
+ssl_certificate /etc/nginx/ssl/default.crt;
+
+ssl_certificate_key /etc/nginx/ssl/default.key;
+
+return 444;
+
+}
+
+É um termo genérico que combina com qualquer nome de host. A trilha de fundo não é especial - É só um valor que nunca vai corresponder a um nome de host real.server_name \_;
+
+**Solução 2: Devolver uma resposta de erro adequada**
+
+Em vez de fechar a conexão silenciosamente, talvez seja melhor devolver um erro HTTP adequado:
+
+server {
+
+listen 80 default_server;
+
+listen \[::\]:80 default_server;
+
+server_name \_;
+
+\# Return 403 Forbidden
+
+return 403 "Access Denied: Unknown Host";
+
+}
+
+Ou redirecione para seu domínio principal:
+
+server {
+
+listen 80 default_server;
+
+listen \[::\]:80 default_server;
+
+server_name \_;
+
+\# Redirect all unknown domains to your main site
+
+return 301 https://mysite.com$request_uri;
+
+}
+
+**Solução 3: Defina explicitamente seus blocos de servidor**
+
+Certifique-se de que cada bloco de servidor declare explicitamente quais domínios ele gerencia:
+
+\# /etc/nginx/sites-enabled/mysite.conf
+
+server {
+
+listen 80;
+
+server_name mysite.com www.mysite.com;
+
+\# Only respond to these exact domains
+
+if ($host !~\* ^(mysite\\.com|www\\.mysite\\.com)$) {
+
+return 444;
+
+}
+
+root /var/www/mysite;
+
+index index.html;
+
+location / {
+
+try_files $uri $uri/ =404;
+
+}
+
+}
+
+**Gerando um Certificado Autoassinado para HTTPS padrão**
+
+Para o servidor padrão HTTPS, você precisa de um certificado:
+
+\# Create SSL directory
+
+sudo mkdir -p /etc/nginx/ssl
+
+\# Generate self-signed certificate
+
+sudo openssl req -x509 -nodes -days 3650 \\
+
+\-newkey rsa:2048 \\
+
+\-keyout /etc/nginx/ssl/default.key \\
+
+\-out /etc/nginx/ssl/default.crt \\
+
+\-subj "/CN=default/O=Default/C=US"
+
+\# Set proper permissions
+
+sudo chmod 600 /etc/nginx/ssl/default.key
+
+sudo chmod 644 /etc/nginx/ssl/default.crt
+
+**Exemplo completo de configuração**
+
+Aqui está uma configuração completa com o manuseio padrão adequado:
+
+\# /etc/nginx/sites-enabled/00-default.conf
+
+\# Default server block - catches all unmatched requests
+
+\# HTTP default
+
+server {
+
+listen 80 default_server;
+
+listen \[::\]:80 default_server;
+
+server_name \_;
+
+\# Log these requests separately for monitoring
+
+access_log /var/log/nginx/default.access.log;
+
+error_log /var/log/nginx/default.error.log;
+
+\# Option 1: Close connection silently
+
+return 444;
+
+\# Option 2: Return error page
+
+\# return 403;
+
+\# Option 3: Redirect to main site
+
+\# return 301 https://mysite.com$request_uri;
+
+}
+
+\# HTTPS default
+
+server {
+
+listen 443 ssl default_server;
+
+listen \[::\]:443 ssl default_server;
+
+server_name \_;
+
+ssl_certificate /etc/nginx/ssl/default.crt;
+
+ssl_certificate_key /etc/nginx/ssl/default.key;
+
+\# Minimal SSL config for default block
+
+ssl_protocols TLSv1.2 TLSv1.3;
+
+access_log /var/log/nginx/default-ssl.access.log;
+
+error_log /var/log/nginx/default-ssl.error.log;
+
+return 444;
+
+}
+
+\# /etc/nginx/sites-enabled/mysite.conf
+
+\# Your actual site configuration
+
+server {
+
+listen 80;
+
+server_name mysite.com www.mysite.com;
+
+return 301 https://$server_name$request_uri;
+
+}
+
+server {
+
+listen 443 ssl http2;
+
+server_name mysite.com www.mysite.com;
+
+ssl_certificate /etc/letsencrypt/live/mysite.com/fullchain.pem;
+
+ssl_certificate_key /etc/letsencrypt/live/mysite.com/privkey.pem;
+
+root /var/www/mysite;
+
+index index.html;
+
+location / {
+
+try_files $uri $uri/ =404;
+
+}
+
+}
+
+**Verifying Your Configuration**
+
+Test that your default server is working correctly:
+
+\# Test configuration syntax
+
+sudo nginx -t
+
+\# Reload Nginx
+
+sudo systemctl reload nginx
+
+\# Test with a fake host header
+
+curl -H "Host: random-domain.com" http://your-server-ip/
+
+\# Should return nothing (444) or error
+
+\# Test with correct host header
+
+curl -H "Host: mysite.com" http://your-server-ip/
+
+\# Should return your site content
+
+**Monitoring Unknown Domain Requests**
+
+Add custom logging to track attempts to access your server with unknown domains:
+
+\# Define custom log format
+
+log_format unknown_host '$remote_addr - \[$time_local\] '
+
+'"$host" "$request" $status '
+
+'"$http_referer" "$http_user_agent"';
+
+server {
+
+listen 80 default_server;
+
+server_name \_;
+
+access_log /var/log/nginx/unknown-hosts.log unknown_host;
+
+return 444;
+
+}
+
+Then monitor with:
+
+\# Watch unknown host attempts in real-time
+
+tail -f /var/log/nginx/unknown-hosts.log
+
+\# Count attempts by host
+
+awk '{print $4}' /var/log/nginx/unknown-hosts.log | sort | uniq -c | sort -rn
+
+**Security Considerations**
+
+|     |     |     |
+| --- | --- | --- |
+| **Risk** | **Without Default Server** | **With Default Server** |
+| Domain hijacking | Possible | Prevented |
+| SEO manipulation | Site indexed under wrong domains | Only correct domains indexed |
+| Certificate errors | May expose valid certs | Uses dummy cert |
+| Information leakage | Site content exposed | No content served |
+| Uso de recursos | Pedidos completos processados | Conexão foi interrompida imediatamente |
+
+**Erros Comuns a Evitar**
+
+1.  **Não definindo um servidor padrão para HTTP e HTTPS**
+2.  **Usando o mesmo certificado para sites padrão e reais**
+3.  **Esquecer de colocar o arquivo de configuração padrão primeiro em ordem alfabética**
+4.  **Usar return 404 em vez de return 444** - 404 ainda envia cabeçalhos e corpo
+5.  **Não testando com acesso bruto ao endereço IP**
+
+**Resumo**
+
+Nginx's A seleção padrão do servidor pode, sem querer, servir seu conteúdo para qualquer domínio apontado para seu IP. Criando um bloco de servidor explícito padrão que captura todas as solicitações não combinadas e ou desliga a conexão ou retorna um erro, você mantém o controle sobre quais domínios seu servidor responde a. Essa simples mudança de configuração melhora significativamente a postura de segurança do seu servidor e a prevenção de várias formas de abuso.
+
+
 </details>
 
 
