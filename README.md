@@ -616,5 +616,5 @@ Document in [MSON][].
   <h2 style="font-style:italic;">&ensp;&thinsp;</h2>
   <div align="right">( <a href="#readme-top">Voltar ao topo</a> )</div>
   
-_MIT licensed | Copyright Â© 2000-2024  [@onixsat](https://onixsat.pt), smartapi@protonmail.com_
+_MIT licensed | Copyright © 2000-2026  [@onixsat](https://ospro.pt), smartapi@protonmail.com_
 </div>
