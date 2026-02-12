@@ -621,6 +621,11 @@ Document in [MSON][].
 Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
 to visit GeeksForGeeks website.
 
+---
+item: "This is (my frontmatter link)[link]{target='_blank'}"
+---
+And here is (my body link)[link]{target='_blank'}
+
 </details>
 
 
