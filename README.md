@@ -631,6 +631,14 @@ And here is (my body link)[link]{target='_blank'}
 <p>And here is <a href="link" target='_blank'>my body link</a></p>
 
 
+[link](url){:target="_blank"}
+[link](http://example.com){:hreflang="de"}
+[Google](https://google.com" target="_blank)
+ [Go to this page](http://somelink.com/?target=_blank)
+[Hello, world!](http://example.com/){target="_blank"}
+[my link](https://noloco.io{target=_blank})
+
+[Hugo Host on GitHub](https://gohugo.io/hosting-and-deployment/hosting-on-github/){:target="_blank"}
 </details>
 
 
