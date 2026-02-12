@@ -622,8 +622,8 @@ Document in [MSON][].
 </details>
 
 <details id="v1">
-  <summary><h4 style="font-style:italic;">Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"</h4></summary>
-**Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"**
+  <summary><h4 style="font-style:italic;">Info</h4></summary>
+<h2 style="font-style:italic;">Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"</h2>
 
 Saiba por que a Nginx responde a qualquer nome de domínio e como configurar um bloco de servidor padrão adequado para controlar quais domínios seu servidor aceita, melhorando a segurança e impedindo indesejados tráfego. 
 
