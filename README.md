@@ -617,14 +617,13 @@ Document in [MSON][].
   <summary><h4 style="font-style:italic;">Texto</h4></summary>
 
 *Texto*
-Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
-<p>Ver info <a href="editor/info.html" target="_blank"> neste link</a></p>
+<p>Ver info <a href="config/info.html" target="_blank"> neste link</a></p>
 
 </details>
 
 <details id="v1">
-  <summary><h4 style="font-style:italic;">Texto</h4></summary>
-**Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"** 
+  <summary><h4 style="font-style:italic;">Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"</h4></summary>
+**Como corrigir "Por que o Nginx está respondendo a qualquer nome de domínio"**
 
 Saiba por que a Nginx responde a qualquer nome de domínio e como configurar um bloco de servidor padrão adequado para controlar quais domínios seu servidor aceita, melhorando a segurança e impedindo indesejados tráfego. 
 
