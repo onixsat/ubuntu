@@ -619,22 +619,7 @@ Document in [MSON][].
 
 *Texto*
 Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
-to visit GeeksForGeeks website.
-
----
-item: "This is (my frontmatter link)[link]{target='_blank'}"
----
-And here is (my body link)[link]{target='_blank'}
-
 <p>And here is <a href="http://example.com" target="_blank">my body link</a></p>
-
-
-[link](http://example.com){:hreflang="de"}
-[Google](https://google.com" target="_blank)
-[Hello, world!](http://example.com/){target=_blank}
-[http://example.com](https://noloco.io{target=_blank})
-
-[Hugo Host on GitHub](https://gohugo.io/hosting-and-deployment/hosting-on-github/){:target=_blank}
 </details>
 
 
