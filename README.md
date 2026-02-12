@@ -612,6 +612,19 @@ Document in [MSON][].
 [MSON]: https://google.com
 
 </details>
+
+
+<details id="SCRIPT">
+  <summary><h4 style="font-style:italic;">Texto</h4></summary>
+
+*Texto*
+Click [here](https://www.geeksforgeeks.org/){:target="_blank"} 
+to visit GeeksForGeeks website.
+
+</details>
+
+
+
 <div align="center" id="CONTATOS">
   <h2 style="font-style:italic;">&ensp;&thinsp;</h2>
   <div align="right">( <a href="#readme-top">Voltar ao topo</a> )</div>
