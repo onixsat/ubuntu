@@ -7,6 +7,37 @@ local command=("$@")
  echo "88"
 fi
 }
+
+
+function draw_spinner(){
+    # shellcheck disable=SC1003
+    local -a marks=( '/' '-' '\ ' '|' )
+    local i=0
+    delay=${SPINNER_DELAY:-0.25}
+    message=${1:-}
+    while :; do
+        printf '%s\r' "${marks[i++ % ${#marks[@]}]} ${message}"
+        sleep "${delay}"
+    done
+}
+
+function start_loading(){
+    message=${1:-}                                # Set optional message
+    draw_spinner "${message}" &                   # Start the Spinner:
+    SPIN_PID=$!                                   # Make a note of its Process ID (PID):
+    declare -g SPIN_PID
+    # shellcheck disable=SC2312
+    trap stop_loading $(seq 0 15)
+}
+function stop_loading(){
+    if [[ "${SPIN_PID}" -gt 0 ]]; then
+        kill -9 "${SPIN_PID}" > /dev/null 2>&1;
+    fi
+    SPIN_PID=0
+    printf '\033[2K'
+}
+
+
 function esperar(){
 		
   # Executar e esperar
