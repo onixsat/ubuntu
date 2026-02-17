@@ -96,12 +96,13 @@ echo -e ""
 function carregar(){
   start_time2=$(date +%s%3N)
   start_loading "Carregando..."
-  check2 sudo apt update
-check2  php -v
+  check sudo apt update
+  esperar carregar "${WHITE}Carregandoxxxx..." "Cxxxxarregado!"
+check  php -v
   stop_loading $?
   end_time2=$(date +%s%3N)
   duration_ms2=$((end_time2 - start_time2))
   echo "Execution: $duration_ms2"
 }
-
+carregar
 esperar carregar "${WHITE}Carregando..." "Carregado!"
