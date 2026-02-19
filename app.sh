@@ -124,16 +124,18 @@ check() {
   
     local command=("$@")
     if "${command[@]}"; then
-        stop_loading $?
+        echo "ok"
+        sleep 5
+    else
+        echo "Erro"
+        sleep 5
+    fi
+     
+    stop_loading $?
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         echo "Execution: $duration_ms2"
         return 0
-    else
-        echo "Erro"
-        exit
-    fi
-    
 
 }
 
@@ -176,84 +178,51 @@ function instalar(){
 	
     check sudo apt update -y
     read -n 1 -r -s -p "Press any key to continue..."
-    clear
+    #clear
     check sudo apt install dos2unix -y
     read -n 1 -r -s -p "Press any key to continue..."
-    exit
     
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install nginx nginx-full -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install ufw -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install iptables-persistent -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install certbot python3-certbot-nginx -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install net-tools -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install apache2 -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt update >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
+    #apt install nginx nginx-full -y >/dev/null 2>&1 &
+    #sudo apt install ufw -y >/dev/null 2>&1 &
+    #sudo apt install iptables-persistent -y >/dev/null 2>&1 &
+    #sudo apt install certbot python3-certbot-nginx -y >/dev/null 2>&1 &
+    #sudo apt install net-tools -y >/dev/null 2>&1 &
+    #sudo apt install apache2 -y >/dev/null 2>&1 &
+    #sudo apt update >/dev/null 2>&1 &
+
     
    # https://docs.vultr.com/how-to-upgrade-php-8-2-to-8-3-on-ubuntu
     
-    sudo apt install apt-transport-https ca-certificates software-properties-common -y
-    sudo add-apt-repository -y ppa:ondrej/php
-    sudo apt update
-    sudo apt install -y php8.3
-    sudo apt install -y php8.3-{common,cgi,gd,mysql,pgsql,curl,bz2,mbstring,intl}
-    sudo apt install -y php8.3-fpm
-    sudo systemctl enable php8.3-fpm
-    sudo systemctl start php8.3-fpm
-    sudo a2enconf php8.3-fpm
-    sudo apachectl configtest
-    sudo systemctl reload apache2
+    #sudo apt install apt-transport-https ca-certificates software-properties-common -y
+    #sudo add-apt-repository -y ppa:ondrej/php
+    #sudo apt update
+    #sudo apt install -y php8.3
+    #sudo apt install -y php8.3-{common,cgi,gd,mysql,pgsql,curl,bz2,mbstring,intl}
+    #sudo apt install -y php8.3-fpm
+    #sudo systemctl enable php8.3-fpm
+    #sudo systemctl start php8.3-fpm
+    #sudo a2enconf php8.3-fpm
+    #sudo apachectl configtest
+    #sudo systemctl reload apache2
     
     
     
     
     
     
-sudo apt update && sudo apt upgrade 
-sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https 
-LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php 
-sudo apt update 
-    sudo apt install php8.2
+#sudo apt update && sudo apt upgrade 
+#sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https 
+#LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php 
+#sudo apt update 
+ #   sudo apt install php8.2
     
     
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo update-alternatives --set php /usr/bin/php8.2
-    sudo systemctl start php8.2-fpm.service >/dev/null 2>&1 &
-    sudo systemctl enable php8.4-fpm.service >/dev/null 2>&1 &
-    sudo systemctl status php8.4-fpm.service >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y >/dev/null 2>&1 &
-    echo "dos2ubix"
-    sleep 3
-    clear
-    LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+  #  sudo update-alternatives --set php /usr/bin/php8.2
+   # sudo systemctl start php8.2-fpm.service >/dev/null 2>&1 &
+    #sudo systemctl enable php8.4-fpm.service >/dev/null 2>&1 &
+    #sudo systemctl status php8.4-fpm.service >/dev/null 2>&1 &
+    #sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https -y >/dev/null 2>&1 &
+    #LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 
 }
@@ -345,7 +314,10 @@ step "Ligar localhost:"
     try instalar
     esperar "sleep 5" "${WHITE}Atualizando3..." " ${WHITE} Atualizado3!"
 next
-pause
+
+read -n 1 -r -s -p "fim"
+
+
 step "Ligar localhost:"
     try sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
     try sudo iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
