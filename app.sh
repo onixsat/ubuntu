@@ -300,7 +300,7 @@ read -n 1 -r -s -p "Press any key to continue2..."
 
 
 step "Carregar2:"
-    try instalar
+    try check instalar
 next
 
 read -n 1 -r -s -p "Press any key to continue3..."
