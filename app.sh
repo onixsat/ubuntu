@@ -7,8 +7,32 @@ SETCOLOR_SUCCESS="echo -en \\033[1;32m"
 SETCOLOR_FAILURE="echo -en \\033[1;31m"
 SETCOLOR_WARNING="echo -en \\033[1;33m"
 SETCOLOR_NORMAL="echo -en \\033[0;39m"
-
-
+function draw_spinner(){
+    # shellcheck disable=SC1003
+    local -a marks=( '/' '-' '\ ' '|' )
+    local i=0
+    delay=${SPINNER_DELAY:-0.25}
+    message=${1:-}
+    while :; do
+        printf '%s\r' "${marks[i++ % ${#marks[@]}]} ${message}"
+        sleep "${delay}"
+    done
+}
+function start_loading(){
+    message=${1:-}                                # Set optional message
+    draw_spinner "${message}" &                   # Start the Spinner:
+    SPIN_PID=$!                                   # Make a note of its Process ID (PID):
+    declare -g SPIN_PID
+    # shellcheck disable=SC2312
+    trap stop_loading $(seq 0 15)
+}
+function stop_loading(){
+    if [[ "${SPIN_PID}" -gt 0 ]]; then
+        kill -9 "${SPIN_PID}" > /dev/null 2>&1;
+    fi
+    SPIN_PID=0
+    printf '\033[2K'
+}
 echo_success() {
     [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
     echo -n "["
@@ -49,6 +73,7 @@ echo_warning() {
     echo -ne "\r"
     return 1
 } 
+
 step() {
     echo -n "$@"
 
@@ -94,19 +119,65 @@ next() {
     return $STEP_OK
 }
 check() {
-local command=("$@")
- if "${command[@]}"; then
- echo "6"
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+    if "${command[@]}"; then
+        stop_loading $?
+        end_time2=$(date +%s%3N)
+        duration_ms2=$((end_time2 - start_time2))
+        echo "Execution: $duration_ms2"
+        return 0
     else
- echo "88"
-fi
+        echo "Erro"
+        exit
+    fi
+    
+
 }
 
+check2() {
+
+ arg1=$1
+  arg2=$2
+  
+  
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+     if "${command[@]}"; then
+     echo "6"
+     #return 0
+        else
+     echo "88"
+    fi
+    
+    
+        if [ $? -eq 0 ]; then
+	echo "Atualizado"
+       return 0
+    else
+        echo "failed"
+        sleep 3
+		exit 1
+    fi
+    
+    
+    
+    stop_loading $?
+    end_time2=$(date +%s%3N)
+    duration_ms2=$((end_time2 - start_time2))
+    echo "Execution: $duration_ms2"
+}
 
 function instalar(){
 	
-    sudo apt update >/dev/null 2>&1 &
-    sudo apt install dos2unix -y
+    check sudo apt update >/dev/null 2>&1 &
+    check sudo apt install dos2unix -y
+    exit
+    
     echo "dos2ubix"
     sleep 3
     clear
@@ -181,41 +252,9 @@ sudo apt update
     clear
     LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
-    if [ $? -eq 0 ]; then
-	echo "Atualizado"
-       return 0
-    else
-        echo "failed"
-        sleep 3
-		exit 1
-    fi
+
 }
-function draw_spinner(){
-    # shellcheck disable=SC1003
-    local -a marks=( '/' '-' '\ ' '|' )
-    local i=0
-    delay=${SPINNER_DELAY:-0.25}
-    message=${1:-}
-    while :; do
-        printf '%s\r' "${marks[i++ % ${#marks[@]}]} ${message}"
-        sleep "${delay}"
-    done
-}
-function start_loading(){
-    message=${1:-}                                # Set optional message
-    draw_spinner "${message}" &                   # Start the Spinner:
-    SPIN_PID=$!                                   # Make a note of its Process ID (PID):
-    declare -g SPIN_PID
-    # shellcheck disable=SC2312
-    trap stop_loading $(seq 0 15)
-}
-function stop_loading(){
-    if [[ "${SPIN_PID}" -gt 0 ]]; then
-        kill -9 "${SPIN_PID}" > /dev/null 2>&1;
-    fi
-    SPIN_PID=0
-    printf '\033[2K'
-}
+
 function esperar(){
 		
   # Executar e esperar
@@ -270,30 +309,15 @@ echo -e ""
   #tput cnorm
   #eval $__resultvar=$exitCode
 }
-function carregar(){
-  start_time2=$(date +%s%3N)
-  start_loading "Carregando..."
-  check sudo apt update
-check  php -v
-  stop_loading $?
-  end_time2=$(date +%s%3N)
-  duration_ms2=$((end_time2 - start_time2))
-  echo "Execution: $duration_ms2"
-}
 
 
-step "Carregar1:"
-    try carregar
-    esperar "sleep 5" "${WHITE}Atualizando1..." " ${WHITE} Atualizado1!"
-next
-pause
+
 step "Carregar2:"
     try instalar
-    esperar carregar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
 next
 
+esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
 
-pause
 
 
 step "Ligar localhost:"
