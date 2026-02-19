@@ -285,12 +285,12 @@ check  php -v
 
 step "Carregar1:"
     try carregar
-    esperar "sleep 5" "${WHITE}Atualizando..." " ${WHITE} Atualizado!"
+    esperar "sleep 5" "${WHITE}Atualizando1..." " ${WHITE} Atualizado1!"
 next
-
+pause
 step "Carregar2:"
     try instalar
-    esperar carregar "${WHITE}Atualizando..." " ${WHITE} Atualizado!"
+    esperar carregar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
 next
 
 
@@ -299,17 +299,17 @@ pause
 
 step "Ligar localhost:"
     try instalar
-    esperar "sleep 5" "${WHITE}Atualizando..." " ${WHITE} Atualizado!"
+    esperar "sleep 5" "${WHITE}Atualizando3..." " ${WHITE} Atualizado3!"
 next
-
+pause
 step "Ligar localhost:"
     try sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
     try sudo iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
     #try sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-port 80
     #try sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8080
-    esperar "sleep 5" "${WHITE}Atualizando..." " ${WHITE} Atualizado!"
+    esperar "sleep 5" "${WHITE}Atualizando4..." " ${WHITE} Atualizado4!"
 next
-
+pause
 
 step "Ligar localhost:"
     try sudo ufw enable
@@ -324,7 +324,7 @@ step "Ligar localhost:"
     #sudo ufw status numbered
     #sudo nginx -s reload
     try sudo systemctl restart nginx
-    esperar "sleep 5" "${WHITE}Atualizando..." " ${WHITE} Atualizado!"
+    esperar "sleep 5" "${WHITE}Atualizando5..." " ${WHITE} Atualizado5!"
 next
 
 pause
