@@ -174,8 +174,11 @@ check2() {
 
 function instalar(){
 	
-    check sudo apt update >/dev/null 2>&1 &
+    check sudo apt update -y
+    read -n 1 -r -s -p "Press any key to continue..."
+    clear
     check sudo apt install dos2unix -y
+    read -n 1 -r -s -p "Press any key to continue..."
     exit
     
     echo "dos2ubix"
@@ -310,15 +313,33 @@ echo -e ""
   #eval $__resultvar=$exitCode
 }
 
+echo Starting sleep
+(sleep 3; exit 3) &
+# get the pid of the last process run
+pid=$!
+
+echo Processing...
+sleep 3
+echo "sleep must be done by now"
+sudo apt update
+# wait for the process to finish
+echo Waiting for sleep to finish
+wait $pid
+echo "Sleep finished with exit code $?"
+echo done
+
+read -n 1 -r -s -p "Press any key to continue2..."
 
 
 step "Carregar2:"
     try instalar
 next
 
+read -n 1 -r -s -p "Press any key to continue3..."
+
 esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
 
-
+read -n 1 -r -s -p "Press any key to continue.4.."
 
 step "Ligar localhost:"
     try instalar
