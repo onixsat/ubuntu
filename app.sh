@@ -175,10 +175,10 @@ check2() {
 
 function instalar(){
 	
-    check sudo apt update -y >/dev/null 2>&1 &
+    check sudo apt update -y
     #read -n 1 -r -s -p "Press any key to continue..."
     #clear
-    check sudo apt install dos2unix -y >/dev/null 2>&1 &
+    check sudo apt install dos2unix -y
     #read -n 1 -r -s -p "Press any key to continue..."
     
     #apt install nginx nginx-full -y >/dev/null 2>&1 &
@@ -300,7 +300,7 @@ read -n 1 -r -s -p "Press any key to continue2..."
 
 
 step "Carregar2:"
-    try check instalar
+    try instalar
 next
 
 read -n 1 -r -s -p "Press any key to continue3..."
