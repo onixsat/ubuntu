@@ -124,18 +124,17 @@ check() {
   
     local command=("$@")
     if "${command[@]}"; then
-        echo "ok"
-        sleep 5
+        echo "ok $command"
     else
         echo "Erro"
-        sleep 5
     fi
      
     stop_loading $?
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         echo "Execution: $duration_ms2"
-        return 0
+        
+        #return 0
 
 }
 
@@ -176,11 +175,11 @@ check2() {
 
 function instalar(){
 	
-    check sudo apt update -y
-    read -n 1 -r -s -p "Press any key to continue..."
+    check sudo apt update -y >/dev/null 2>&1 &
+    #read -n 1 -r -s -p "Press any key to continue..."
     #clear
-    check sudo apt install dos2unix -y
-    read -n 1 -r -s -p "Press any key to continue..."
+    check sudo apt install dos2unix -y >/dev/null 2>&1 &
+    #read -n 1 -r -s -p "Press any key to continue..."
     
     #apt install nginx nginx-full -y >/dev/null 2>&1 &
     #sudo apt install ufw -y >/dev/null 2>&1 &
@@ -283,12 +282,12 @@ echo -e ""
 }
 
 echo Starting sleep
-(sleep 3; exit 3) &
+(sleep 1; exit 3) &
 # get the pid of the last process run
 pid=$!
 
 echo Processing...
-sleep 3
+sleep 1
 echo "sleep must be done by now"
 sudo apt update
 # wait for the process to finish
