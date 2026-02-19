@@ -274,7 +274,6 @@ function carregar(){
   start_time2=$(date +%s%3N)
   start_loading "Carregando..."
   check sudo apt update
-  esperar carregar "${WHITE}Carregandoxxxx..." "Cxxxxarregado!"
 check  php -v
   stop_loading $?
   end_time2=$(date +%s%3N)
