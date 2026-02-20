@@ -1,17 +1,5 @@
 . ./functions.sh
-function instalar(){
-	#echo "ok"
- sudo mv oi oi
-if [ $? -eq 0 ]; then
-	echo "Atualizado"
-   #    return 0
-    else
-        echo "failed"
-        sleep 3
-	#	exit 1
-    fi	
-	sudo apt update -y
-}
+
 
 function esperar(){
     start_time2=$(date +%s%3N)
@@ -64,7 +52,7 @@ CINZA="$(tput setaf 8)"
     end_time2=$(date +%s%3N)
     duration_ms2=$((end_time2 - start_time2))
     echo -e "Execution: $duration_ms2"
-  
+  echo
   # Restore the cursor
 #  tput cnorm
 #  eval $__resultvar=$exitCode
@@ -90,7 +78,16 @@ arg1=$1
 arg2=$2
 arg3=$3
 esperar $arg1 "$arg2" " ${WHITE} $arg3"
-}
+if [ $? -eq 0 ]; then
+	echo "Atualizado"
+       return 0
+    else
+        echo "failed"
+        sleep 3
+		exit 1
+    fi	
+	
+	}
 function run(){
 echo "ok" &
  setup "sudo mv oi oi" "1" "1x" &
@@ -101,9 +98,8 @@ wait
 echo "All jobs completed." 
 }
 
- setup sudo apt update "1" "1x"
- read -n 1 -r -s -p "Press any key to continue..."
-  setup php -v "2" "2x"
+ setup "sudo apt update" "lolnn" "kokkkx"
+setup "sudo php -v" "kkkk" "xxxxxxx"
 #run
 
 #iniciar
