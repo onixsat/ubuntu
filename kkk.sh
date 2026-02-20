@@ -1,4 +1,26 @@
 . ./functions.sh
+check() {
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+    if "${command[@]}"; then
+        echo "ok $command"
+    else
+        echo "Erro"
+    fi
+     
+    stop_loading $?
+        end_time2=$(date +%s%3N)
+        duration_ms2=$((end_time2 - start_time2))
+        echo "Execution: $duration_ms2"
+        
+        #return 0
+
+}
+
+
+
 echo_success() {
     [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
     echo -n "["
@@ -115,8 +137,12 @@ echo "First job completed."
 wait
 echo "All jobs completed." 
 }
-
- setup "sudo apt update" "lolnn" "kokkkx"
+function instalar(){
+	
+    check sudo apt update -y
+}
+ esperar instalar "Instalando..." " ${WHITE} Instalado!"
+ 
 setup "sudo mv oi oi" "kkkk" "xxxxxxx"
 
 run
