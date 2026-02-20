@@ -1,6 +1,9 @@
 . ./functions.sh
 
 step() {
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+    
     echo -n "$@"
 
     STEP_OK=0
@@ -41,68 +44,25 @@ next() {
     [[ -f /tmp/step.$$ ]] && { STEP_OK=$(< /tmp/step.$$); rm -f /tmp/step.$$; }
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
     echo
-
-    return $STEP_OK
-}
-check() {
-    start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
-  
-    local command=("$@")
-    if "${command[@]}"; then
-        echo "ok $command"
-    else
-        echo "Erro"
-    fi
-     
-    stop_loading $?
-        end_time2=$(date +%s%3N)
-        duration_ms2=$((end_time2 - start_time2))
-        echo "Execution: $duration_ms2"
-        
-        #return 0
-
-}
-check2() {
-
- arg1=$1
-  arg2=$2
-  
-  
-    start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
-  
-    local command=("$@")
-     if "${command[@]}"; then
-     echo "6"
-     #return 0
-        else
-     echo "88"
-    fi
-    
-    
-        if [ $? -eq 0 ]; then
-	echo "Atualizado"
-       return 0
-    else
-        echo "failed"
-        sleep 3
-		exit 1
-    fi
-    
-    
     
     stop_loading $?
     end_time2=$(date +%s%3N)
     duration_ms2=$((end_time2 - start_time2))
     echo "Execution: $duration_ms2"
+    echo
+    
+    return $STEP_OK
 }
 function instalar(){
 	
-    check sudo apt update -y
+    step "Carregar1:"
+    try sudo apt update -y
+    next
     #read -n 1 -r -s -p "Press any key to continue..."
     #clear
-    check sudo apt install dos2unix -y
+    step "Carregar2:"
+    try sudo apt install dos2unix -y
+    next
     #read -n 1 -r -s -p "Press any key to continue..."
     
     #apt install nginx nginx-full -y >/dev/null 2>&1 &
@@ -223,20 +183,14 @@ function iniciar(){
 read -n 1 -r -s -p "Press any key to continue1..."
 
 step "Carregar1:"
-    try esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
+    esperar "try instalar" "${WHITE}Atualizando3..." " ${WHITE} Atualizado3!"
 next
 
 read -n 1 -r -s -p "Press any key to continue2..."
 
-step "Carregar2:"
-    try instalar
-next
-
-read -n 1 -r -s -p "Press any key to continue3..."
-
 esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
 
-read -n 1 -r -s -p "Press any key to continue.4.."
+read -n 1 -r -s -p "Press any key to continue3..."
 
 step "Ligar localhost:"
     try instalar
