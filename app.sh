@@ -1,4 +1,9 @@
 . ./functions.sh
+#sudo rm /var/lib/dpkg/lock
+#sudo rm /var/lib/apt/lists/lock
+#sudo rm /var/lib/dpkg/lock-frontend
+#sudo rm /var/cache/apt/archives/lock
+#sudo dpkg --configure -a
 
 step() {
     start_time2=$(date +%s%3N)
@@ -58,11 +63,16 @@ function instalar(){
     step "Carregar1:"
     try sudo apt update -y
     next
-    #read -n 1 -r -s -p "Press any key to continue..."
-    #clear
+    
+    read -n 1 -r -s -p "Press any key to continue function instalar 1..."
+    clear
+    
     step "Carregar2:"
     try sudo apt install dos2unix -y
     next
+    
+    read -n 1 -r -s -p "Press any key to continue function instalar 2..."
+    clear
     #read -n 1 -r -s -p "Press any key to continue..."
     
     #apt install nginx nginx-full -y >/dev/null 2>&1 &
@@ -180,24 +190,10 @@ function iniciar(){
     echo done
 }
 
-read -n 1 -r -s -p "Press any key to continue1..."
+esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 
-step "Carregar1:"
-    esperar "try instalar" "${WHITE}Atualizando3..." " ${WHITE} Atualizado3!"
-next
-
-read -n 1 -r -s -p "Press any key to continue2..."
-
-esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
-
-read -n 1 -r -s -p "Press any key to continue3..."
-
-step "Ligar localhost:"
-    try instalar
-    esperar "sleep 5" "${WHITE}Atualizando3..." " ${WHITE} Atualizado3!"
-next
-
-read -n 1 -r -s -p "fim"
+read -n 1 -r -s -p "Press any key to continue..."
+clear
 
 
 step "Ligar localhost:"
