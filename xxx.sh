@@ -1,23 +1,5 @@
 . ./functions.sh
-check() {
-    start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
-  
-    local command=("$@")
-    if "${command[@]}"; then
-        echo "ok $command"
-    else
-        echo "Erro"
-    fi
-     
-    stop_loading $?
-        end_time2=$(date +%s%3N)
-        duration_ms2=$((end_time2 - start_time2))
-        echo "Execution: $duration_ms2"
-        
-        #return 0
 
-}
 
 
 
@@ -41,6 +23,27 @@ echo_failure() {
     echo -ne "\r"
     return 1
 }
+function check() {
+   # start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+    if "${command[@]}"; then
+        echo_success
+    else
+        echo_failure
+    fi
+     
+    stop_loading $?
+    #    end_time2=$(date +%s%3N)
+    #    duration_ms2=$((end_time2 - start_time2))
+    #    echo "Execution: $duration_ms2"
+        
+        #return 0
+
+}
+
+
 
 function esperar(){
     start_time2=$(date +%s%3N)
