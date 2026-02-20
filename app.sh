@@ -1,5 +1,24 @@
 . ./functions.sh
-
+echo_success() {
+    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
+    echo -n "["
+    [ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
+    echo -n $"  OK  "
+    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
+    echo -n "]"
+    echo -ne "\r"
+    return 0
+}
+echo_failure() {
+    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
+    echo -n "["
+    [ "$BOOTUP" = "color" ] && $SETCOLOR_FAILURE
+    echo -n $"FAILED"
+    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
+    echo -n "]"
+    echo -ne "\r"
+    return 1
+}
 
 function esperar(){
     start_time2=$(date +%s%3N)
@@ -43,16 +62,15 @@ CINZA="$(tput setaf 8)"
   exitCode=$?
   if [ "$exitCode" -eq "0" ]; then
     echo_success
-    #printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
+    printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
   else
     echo_failure
-    #printf "${X_SYMBOL} ${2}                                                                \b\n"
+    printf "${X_SYMBOL} ${2}                                                                \b\n"
   fi
 
     end_time2=$(date +%s%3N)
     duration_ms2=$((end_time2 - start_time2))
     echo -e "Execution: $duration_ms2"
-  echo
   # Restore the cursor
 #  tput cnorm
 #  eval $__resultvar=$exitCode
@@ -105,6 +123,8 @@ setup "sudo php -v" "kkkk" "xxxxxxx"
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
 clear
-
+esperar iniciar "Instalando..." " ${WHITE} Instalado!"
+read -n 1 -r -s -p "Press any key to continue..."
+clear
 
 esperar instalar "Instalando..." " ${WHITE} Instalado!"
