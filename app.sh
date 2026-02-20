@@ -4,11 +4,65 @@
 #sudo rm /var/lib/dpkg/lock-frontend
 #sudo rm /var/cache/apt/archives/lock
 #sudo dpkg --configure -a
+check2() {
 
+ arg1=$1
+  arg2=$2
+  
+  
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+     if "${command[@]}"; then
+     echo "6"
+     #return 0
+        else
+     echo "88"
+    fi
+    
+    
+        if [ $? -eq 0 ]; then
+	echo "Atualizado"
+       return 0
+    else
+        echo "failed"
+        sleep 3
+		exit 1
+    fi
+    
+    
+    
+    stop_loading $?
+    end_time2=$(date +%s%3N)
+    duration_ms2=$((end_time2 - start_time2))
+    echo "Execution: $duration_ms2"
+}
+check() {
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+  
+    local command=("$@")
+    if "${command[@]}"; then
+        echo "ok $command"
+    else
+        echo "Erro"
+    fi
+     
+    stop_loading $?
+        end_time2=$(date +%s%3N)
+        duration_ms2=$((end_time2 - start_time2))
+        echo "Execution: $duration_ms2"
+        
+        #return 0
+
+}
 
 function instalar(){
 	#echo "ok"
-    sudo apt update -y
+    check sudo mv oi oi
+	
+	check2 sudo apt update -y
         
     #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
 
