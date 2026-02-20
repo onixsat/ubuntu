@@ -27,11 +27,11 @@ function check_previous {
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         
-        echo -e "$1 Execution: $duration_ms2"
-        echo_success()
+        echo "$1 Execution: $duration_ms2"
+        echo_success
         else
         echo "$1: failed"
-        echo_failure()
+        echo_failure
         fi
 
 }
