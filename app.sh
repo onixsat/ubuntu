@@ -95,14 +95,14 @@ function setup() {
 arg1=$1
 arg2=$2
 arg3=$3
-esperar $arg1 "$arg2" " ${WHITE} $arg3"
+esperar "$arg1" "$arg2" " ${WHITE} $arg3"
 if [ $? -eq 0 ]; then
 	echo "Atualizado"
        return 0
     else
         echo "failed"
         sleep 3
-		exit 1
+		#exit 1
     fi	
 	
 	}
@@ -117,7 +117,7 @@ echo "All jobs completed."
 }
 
  setup "sudo apt update" "lolnn" "kokkkx"
-setup "sudo php -v" "kkkk" "xxxxxxx"
+setup "sudo mv oi oi" "kkkk" "xxxxxxx"
 #run
 
 #iniciar
