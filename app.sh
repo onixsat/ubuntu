@@ -1,4 +1,10 @@
 . ./functions.sh
+#sudo rm /var/lib/dpkg/lock
+#sudo rm /var/lib/apt/lists/lock
+#sudo rm /var/lib/dpkg/lock-frontend
+#sudo rm /var/cache/apt/archives/lock
+#sudo dpkg --configure -a
+
 
 function instalar(){
 	#echo "ok"
@@ -62,12 +68,12 @@ function instalar(){
 
 echo_success() {
     [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
+    echo -e "["
     [ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
-    echo -n $"  OK  "
+    echo -e $"  OK  "
     [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
+    echo -e "]"
+    #echo -ne "\r"
     return 0
 }
 echo_failure() {
@@ -119,7 +125,7 @@ function esperar(){
     sleep $delay
   done
 
-  echo "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
+  echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
 
 #echo -e ""
 #  printf " \b\n"
