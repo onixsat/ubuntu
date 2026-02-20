@@ -19,7 +19,7 @@ CINZA="$(tput setaf 8)"
   CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
   CHECK_SYMBOL='\u2713'
   X_SYMBOL='\u2A2F'
-  local __resultvar=$3
+ # local __resultvar=$3
   local done=${3:-'Atualizado'}
   local msg=$2
 
@@ -48,8 +48,8 @@ CINZA="$(tput setaf 8)"
 
   echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
 
-echo -e ""
-  printf " \b\n"
+#echo -e ""
+#  printf " \b\n"
   # Wait the command to be finished, this is needed to capture its exit status
   wait $!
   exitCode=$?
@@ -66,8 +66,8 @@ echo -e ""
     echo -e "Execution: $duration_ms2"
   
   # Restore the cursor
-  tput cnorm
-  eval $__resultvar=$exitCode
+#  tput cnorm
+#  eval $__resultvar=$exitCode
 }
 function iniciar(){
     echo Starting sleep
@@ -104,7 +104,7 @@ echo "All jobs completed."
  setup sudo apt update "1" "1x"
  read -n 1 -r -s -p "Press any key to continue..."
   setup php -v "2" "2x"
-run
+#run
 
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
