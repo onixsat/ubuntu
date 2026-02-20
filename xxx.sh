@@ -120,7 +120,7 @@ arg3=$3
 esperar "$arg1" "$arg2" " ${WHITE} $arg3"
 if [ $? -eq 0 ]; then
 	echo "Atualizado"
-       return 0
+       #return 0
     else
         echo "failed"
         sleep 3
@@ -141,8 +141,12 @@ function instalar(){
 	
     check sudo apt update -y
 	read -n 1 -r -s -p "Press X..."
-	check php -v
+	sleep 5
+	check sudo cp oi.txt oi2.txt
+	sleep 5
+	return 0
 }
+
  esperar instalar "Instalando..." " ${WHITE} Instalado!"
 
 read -n 1 -r -s -p "Press 0..."
