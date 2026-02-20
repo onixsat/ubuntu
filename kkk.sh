@@ -118,7 +118,8 @@ echo "All jobs completed."
 
  setup "sudo apt update" "lolnn" "kokkkx"
 setup "sudo mv oi oi" "kkkk" "xxxxxxx"
-#run
+
+run
 
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
