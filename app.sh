@@ -227,45 +227,13 @@ function iniciar(){
 }
 
 
-set -m # allow for job control
-EXIT_CODE=0;  # exit code of overall script
-
-function foo() {
-   echo "CHLD exit code is $1"
-      echo "CHLD pid is $2"
-      echo $(jobs -n)
-
-   if [[ $? > 0 ]]; then
-      echo "at least one test failed";
-      EXIT_CODE=1;
-   fi
-}
-
-trap 'foo $? $$' CHLD
-
-DIRN=$(dirname "$0");
-
-commands=(
-    "{ echo "foo" && exit 4; }"
-    "{ echo "bar" && exit 3; }"
-    "{ echo "baz" && exit 5; }"
-)
-
-clen=`expr "${#commands[@]}" - 1` # get length of commands - 1
-
-for i in `seq 0 "$clen"`; do
-    (echo "${commands[$i]}" | bash) &   # run the command via bash in subshell
-    echo "$i ith command has been issued as a background job"
-done
-
-# wait for all to finish
-wait;
-
-echo "EXIT_CODE => $EXIT_CODE"
-exit "$EXIT_CODE"
-
-# end
-
+echo "oi" &
+sleep 3 &
+sleep 5 &
+wait -n
+echo "First job completed."
+wait
+echo "All jobs completed."
 
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
