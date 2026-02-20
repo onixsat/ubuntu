@@ -115,16 +115,23 @@ try() {
 next() {
     [[ -f /tmp/step.$$ ]] && { STEP_OK=$(< /tmp/step.$$); rm -f /tmp/step.$$; }
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
-    echo
+    #echo
 
     return $STEP_OK
 }
 step "etapa1"
-try sudo apt update
+try sudo apt update -y >/dev/null 2>&1 &
 next
 step "etapa2"
-try sudo mv oi oi
+try sudo mv oi oi >/dev/null 2>&1 &
 next
 step "etapa3"
-try sudo apt install curl
+try sudo apt install curl -y >/dev/null 2>&1 &
+next
+
+
+step "etapa4"
+try sudo apt update -b
+try sudo mv oi oi -b
+try sudo apt install curl -b
 next
