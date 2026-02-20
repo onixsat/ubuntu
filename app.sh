@@ -53,9 +53,9 @@ try() {
 }
 next() {
     [[ -f /tmp/step.$$ ]] && { STEP_OK=$(< /tmp/step.$$); rm -f /tmp/step.$$; }
-    read -n 1 -r -s -p "Prekkkkk..."
+    
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
-    echo
+    #echo
     
     return $STEP_OK
 }
