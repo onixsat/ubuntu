@@ -68,12 +68,12 @@ function instalar(){
 
 echo_success() {
     [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -e "["
+    echo -n "["
     [ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
-    echo -e $"  OK  "
+    echo -n $"  OK  "
     [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -e "]"
-    #echo -ne "\r"
+    echo -n "]"
+    echo -ne "\r"
     return 0
 }
 echo_failure() {
