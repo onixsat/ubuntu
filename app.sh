@@ -159,19 +159,19 @@ function esperar(){
 
   echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
 echo -e ""
-  #printf " \b\n"
+  printf " \b\n"
   # Wait the command to be finished, this is needed to capture its exit status
-  #wait $!
-  #exitCode=$?
-  #if [ "$exitCode" -eq "0" ]; then
-  #  printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
-  #else
-  #  printf "${X_SYMBOL} ${2}                                                                \b\n"
-  #fi
+  wait $!
+  exitCode=$?
+  if [ "$exitCode" -eq "0" ]; then
+    printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
+  else
+    printf "${X_SYMBOL} ${2}                                                                \b\n"
+  fi
 
   # Restore the cursor
-  #tput cnorm
-  #eval $__resultvar=$exitCode
+  tput cnorm
+  eval $__resultvar=$exitCode
 }
 function iniciar(){
     echo Starting sleep
