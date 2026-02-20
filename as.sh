@@ -120,7 +120,7 @@ next() {
     return $STEP_OK
 }
 step "etapa1"
-try sudo update
+try sudo apt update
 next
 step "etapa2"
 try sudo mv oi oi
