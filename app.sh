@@ -1,11 +1,4 @@
 . ./functions.sh
-#sudo rm /var/lib/dpkg/lock
-#sudo rm /var/lib/apt/lists/lock
-#sudo rm /var/lib/dpkg/lock-frontend
-#sudo rm /var/cache/apt/archives/lock
-#sudo dpkg --configure -a
-
-
 function instalar(){
 	#echo "ok"
  sudo mv oi oi
@@ -18,39 +11,11 @@ if [ $? -eq 0 ]; then
 	#	exit 1
     fi	
 	sudo apt update -y
-        
-
-}
-
-echo_success() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
-    echo -n $"  OK  "
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 0
-}
-echo_failure() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_FAILURE
-    echo -n $"FAILED"
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 1
 }
 
 function esperar(){
     start_time2=$(date +%s%3N)
-  # Executar e esperar
-  # Run the command passed as 1st argument and shows the spinner until this is done
-  # @param String $1 the command to run
-  # @param String $2 the title to show next the spinner
-  # @param var $3 the variable containing the return code
-  CINZA="$(tput setaf 8)"
+CINZA="$(tput setaf 8)"
   CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
   CHECK_SYMBOL='\u2713'
   X_SYMBOL='\u2A2F'
@@ -128,19 +93,18 @@ esperar "$arg1" "$arg2" " ${WHITE} $arg3"
 }
 function run(){
 	#echo "ok"
- setup "sudo mv oi oi" "2" "2x"
+ setup "sudo mv oi oi" "1" "1x"
  sleep 5
 	setup "sudo apt update -y" "2" "2x"
 }
 
 echo "oi" &
-sleep 3 &
+run &
 sleep 3 &
 wait -n
 echo "First job completed."
 wait
 echo "All jobs completed."
-run
 
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
