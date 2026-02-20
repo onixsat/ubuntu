@@ -194,8 +194,6 @@ esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 
 read -n 1 -r -s -p "Press any key to continue..."
 
-
-
 step "Update:"
     try sudo apt update -y
 next
@@ -203,5 +201,5 @@ next
 read -n 1 -r -s -p "Press any key to continue..."
 
 step "Update:"
-    try esperar "sudo apt update -y" "Atualizando..." " ${WHITE} Atualizado!"
+esperar "try sudo apt update -y" "Esperar" " Atualizado!"
 next
