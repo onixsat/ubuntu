@@ -60,8 +60,15 @@ check() {
 
 function instalar(){
 	#echo "ok"
-    check sudo mv oi oi
-	
+ sudo mv oi oi
+if [ $? -eq 0 ]; then
+	echo "Atualizado"
+   #    return 0
+    else
+        echo "failed"
+        sleep 3
+	#	exit 1
+    fi	
 	check2 sudo apt update -y
         
     #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
