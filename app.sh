@@ -92,19 +92,17 @@ arg3=$3
 esperar "$arg1" "$arg2" " ${WHITE} $arg3"
 }
 function run(){
-	#echo "ok"
- setup "sudo mv oi oi" "1" "1x"
- sleep 5
-	setup "sudo apt update -y" "2" "2x"
-}
-
-echo "oi" &
-run &
-sleep 3 &
-wait -n
+echo "ok" &
+ setup "sudo mv oi oi" "1" "1x" &
+ setup "sudo apt update -y" "2" "2x" &
+ wait -n
 echo "First job completed."
 wait
-echo "All jobs completed."
+echo "All jobs completed." 
+}
+
+
+run
 
 #iniciar
 read -n 1 -r -s -p "Press any key to continue..."
