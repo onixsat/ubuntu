@@ -14,7 +14,7 @@ step() {
 try() {
 
     start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
+
     
     # Check for `-b' argument to run command in the background.
     local BG=
@@ -44,7 +44,7 @@ try() {
         fi
     fi
 
-    stop_loading $?
+
     end_time2=$(date +%s%3N)
     duration_ms2=$((end_time2 - start_time2))
     echo "Execution: $duration_ms2"
@@ -53,6 +53,7 @@ try() {
 }
 next() {
     [[ -f /tmp/step.$$ ]] && { STEP_OK=$(< /tmp/step.$$); rm -f /tmp/step.$$; }
+    read -n 1 -r -s -p "Prekkkkk..."
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
     echo
     
