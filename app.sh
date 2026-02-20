@@ -59,18 +59,18 @@ next() {
     return $STEP_OK
 }
 function instalar(){
-	echo "ok"
-    sudo apt update -y
+	#echo "ok"
+    sudo apt update -y >/dev/null 2>&1 &
 
     
-    read -n 1 -r -s -p "Press any key to continue function instalar 1..."
+    #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
 
     
 #    step "Carregar2:"
-    sudo apt install dos2unix -y
+    sudo apt install dos2unix -y >/dev/null 2>&1 &
  #   next
     
-    read -n 1 -r -s -p "Press any key to continue function instalar 2..."
+    #read -n 1 -r -s -p "Press any key to continue function instalar 2..."
 
     #read -n 1 -r -s -p "Press any key to continue..."
     
@@ -120,7 +120,6 @@ function instalar(){
 }
 function esperar(){
     start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
   # Executar e esperar
   # Run the command passed as 1st argument and shows the spinner until this is done
   # @param String $1 the command to run
@@ -158,10 +157,9 @@ function esperar(){
   done
 
   echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
-read -n 1 -r -s -p "Press 1..."
 
-echo -e ""
-  printf " \b\n"
+#echo -e ""
+#  printf " \b\n"
   # Wait the command to be finished, this is needed to capture its exit status
   wait $!
   exitCode=$?
@@ -173,7 +171,6 @@ echo -e ""
     printf "${X_SYMBOL} ${2}                                                                \b\n"
   fi
 
-    stop_loading $?
     end_time2=$(date +%s%3N)
     duration_ms2=$((end_time2 - start_time2))
     echo "Execution: $duration_ms2"
