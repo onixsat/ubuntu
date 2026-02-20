@@ -1,78 +1,4 @@
-#!/bin/bash
-#./etc/init.d/functions
-BOOTUP=color
-RES_COL=60
-MOVE_TO_COL="echo -en \\033[${RES_COL}G"
-SETCOLOR_SUCCESS="echo -en \\033[1;32m"
-SETCOLOR_FAILURE="echo -en \\033[1;31m"
-SETCOLOR_WARNING="echo -en \\033[1;33m"
-SETCOLOR_NORMAL="echo -en \\033[0;39m"
-function draw_spinner(){
-    # shellcheck disable=SC1003
-    local -a marks=( '/' '-' '\ ' '|' )
-    local i=0
-    delay=${SPINNER_DELAY:-0.25}
-    message=${1:-}
-    while :; do
-        printf '%s\r' "${marks[i++ % ${#marks[@]}]} ${message}"
-        sleep "${delay}"
-    done
-}
-function start_loading(){
-    message=${1:-}                                # Set optional message
-    draw_spinner "${message}" &                   # Start the Spinner:
-    SPIN_PID=$!                                   # Make a note of its Process ID (PID):
-    declare -g SPIN_PID
-    # shellcheck disable=SC2312
-    trap stop_loading $(seq 0 15)
-}
-function stop_loading(){
-    if [[ "${SPIN_PID}" -gt 0 ]]; then
-        kill -9 "${SPIN_PID}" > /dev/null 2>&1;
-    fi
-    SPIN_PID=0
-    printf '\033[2K'
-}
-echo_success() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
-    echo -n $"  OK  "
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 0
-}
-echo_failure() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_FAILURE
-    echo -n $"FAILED"
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 1
-}
-echo_passed() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_WARNING
-    echo -n $"PASSED"
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 1
-}
-echo_warning() {
-    [ "$BOOTUP" = "color" ] && $MOVE_TO_COL
-    echo -n "["
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_WARNING
-    echo -n $"WARNING"
-    [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
-    echo -n "]"
-    echo -ne "\r"
-    return 1
-} 
+. ./functions.sh
 
 step() {
     echo -n "$@"
@@ -137,7 +63,6 @@ check() {
         #return 0
 
 }
-
 check2() {
 
  arg1=$1
@@ -172,7 +97,6 @@ check2() {
     duration_ms2=$((end_time2 - start_time2))
     echo "Execution: $duration_ms2"
 }
-
 function instalar(){
 	
     check sudo apt update -y
@@ -225,7 +149,6 @@ function instalar(){
 
 
 }
-
 function esperar(){
 		
   # Executar e esperar
@@ -280,24 +203,30 @@ echo -e ""
   #tput cnorm
   #eval $__resultvar=$exitCode
 }
+function iniciar(){
+    echo Starting sleep
+    (sleep 1; exit 3) &
+    # get the pid of the last process run
+    pid=$!
 
-echo Starting sleep
-(sleep 1; exit 3) &
-# get the pid of the last process run
-pid=$!
+    echo Processing...
+    sleep 1
+    echo "sleep must be done by now"
+    sudo apt update
+    # wait for the process to finish
+    echo Waiting for sleep to finish
+    wait $pid
+    echo "Sleep finished with exit code $?"
+    echo done
+}
 
-echo Processing...
-sleep 1
-echo "sleep must be done by now"
-sudo apt update
-# wait for the process to finish
-echo Waiting for sleep to finish
-wait $pid
-echo "Sleep finished with exit code $?"
-echo done
+read -n 1 -r -s -p "Press any key to continue1..."
+
+step "Carregar1:"
+    try esperar instalar "${WHITE}Atualizando2..." " ${WHITE} Atualizado2!"
+next
 
 read -n 1 -r -s -p "Press any key to continue2..."
-
 
 step "Carregar2:"
     try instalar
@@ -324,22 +253,3 @@ step "Ligar localhost:"
     #try sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8080
     esperar "sleep 5" "${WHITE}Atualizando4..." " ${WHITE} Atualizado4!"
 next
-pause
-
-step "Ligar localhost:"
-    try sudo ufw enable
-    try sudo ufw status
-    try sudo systemctl reload nginx
-    
-    try sudo ufw allow 'Nginx Full'
-    try sudo ufw allow 'Nginx HTTP'
-    try sudo ufw allow 'Nginx HTTPS'
-    try sudo ufw allow OpenSSH
-    try sudo ufw allow ssh
-    #sudo ufw status numbered
-    #sudo nginx -s reload
-    try sudo systemctl restart nginx
-    esperar "sleep 5" "${WHITE}Atualizando5..." " ${WHITE} Atualizado5!"
-next
-
-pause
