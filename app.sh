@@ -1,9 +1,9 @@
 . ./functions.sh
-#sudo rm /var/lib/dpkg/lock
-#sudo rm /var/lib/apt/lists/lock
-#sudo rm /var/lib/dpkg/lock-frontend
-#sudo rm /var/cache/apt/archives/lock
-#sudo dpkg --configure -a
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/lib/dpkg/lock-frontend
+sudo rm /var/cache/apt/archives/lock
+sudo dpkg --configure -a
 
 step() {
     echo -n "$@"
@@ -60,14 +60,15 @@ next() {
 }
 function instalar(){
 	#echo "ok"
-    sudo apt update -y >/dev/null 2>&1 &
-
+    step "Carregar1:"
+    try sudo apt update -y >/dev/null 2>&1 &
+    next
     
     #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
 
     
 #    step "Carregar2:"
-    sudo apt install dos2unix -y >/dev/null 2>&1 &
+    #sudo apt install dos2unix -y >/dev/null 2>&1 &
  #   next
     
     #read -n 1 -r -s -p "Press any key to continue function instalar 2..."
@@ -204,9 +205,8 @@ esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 read -n 1 -r -s -p "Press any key to continue1..."
 clear
 
-step "Carregar1:"
-    try instalar
-next
+instalar
+
 
 read -n 1 -r -s -p "Press any key to continue2..."
 clear
