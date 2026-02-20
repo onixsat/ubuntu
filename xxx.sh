@@ -84,10 +84,10 @@ CINZA="$(tput setaf 8)"
   exitCode=$?
   if [ "$exitCode" -eq "0" ]; then
     echo_success
-    printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
+    #printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
   else
     echo_failure
-    printf "${X_SYMBOL} ${2}                                                                \b\n"
+   # printf "${X_SYMBOL} ${2}                                                                \b\n"
   fi
 
     end_time2=$(date +%s%3N)
@@ -155,8 +155,8 @@ setup "sudo mv oi oi" "kkkk" "xxxxxxx"
 #iniciar
 read -n 1 -r -s -p "Press any key to continue1..."
 clear
-esperar iniciar "Instalando..." " ${WHITE} Instalado!"
-read -n 1 -r -s -p "Press any key to continue2..."
-clear
-
-esperar instalar "Instalando..." " ${WHITE} Instalado!"
+check sudo apt update -y
+check sudo mv oi oi
+#esperar iniciar "Instalando..." " ${WHITE} Instalado!"
+#read -n 1 -r -s -p "Press any key to continue2..."
+#clear
