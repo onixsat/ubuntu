@@ -69,7 +69,7 @@ if [ $? -eq 0 ]; then
         sleep 3
 	#	exit 1
     fi	
-	check2 sudo apt update -y
+	sudo apt update -y
         
     #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
 
@@ -225,11 +225,28 @@ function iniciar(){
     echo "Sleep finished with exit code $?"
     echo done
 }
-
+setup() {
+arg1=$1
+arg2=$2
+esperar $arg1 "$arg2" " ${WHITE} $arg3"
+}
+function run(){
+	#echo "ok"
+ setup "sudo mv oi oi" "2" "2x"
+if [ $? -eq 0 ]; then
+	echo "Atualizado"
+   #    return 0
+    else
+        echo "failed"
+        sleep 3
+	#	exit 1
+    fi	
+	setup "sudo apt update -y" "2" "2x"
+}
 
 echo "oi" &
 sleep 3 &
-sleep 5 &
+run &
 wait -n
 echo "First job completed."
 wait
