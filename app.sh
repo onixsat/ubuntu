@@ -61,7 +61,7 @@ next() {
 function instalar(){
 	#echo "ok"
     step "Carregar1:"
-    try sudo apt update -y >/dev/null 2>&1 &
+    try sudo apt update -y
     next
     
     #read -n 1 -r -s -p "Press any key to continue function instalar 1..."
