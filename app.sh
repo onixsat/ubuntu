@@ -130,7 +130,7 @@ function esperar(){
   CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
   CHECK_SYMBOL='\u2713'
   X_SYMBOL='\u2A2F'
-  #local __resultvar=$3
+  local __resultvar=$3
   local done=${3:-'Atualizado'}
   local msg=$2
 
@@ -190,6 +190,8 @@ function iniciar(){
     echo done
 }
 
+esperar "sudo apt update -y" "${WHITE}Instalando..." " ${WHITE} Instalado!"
+read -n 1 -r -s -p "Press any key to continue..."
 esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 
 read -n 1 -r -s -p "Press any key to continue..."
