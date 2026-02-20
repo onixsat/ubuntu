@@ -123,11 +123,13 @@ function iniciar(){
 function setup() {
 arg1=$1
 arg2=$2
-esperar $arg1 "$arg2" " ${WHITE} $arg3"
+arg3=$3
+esperar "$arg1" "$arg2" " ${WHITE} $arg3"
 }
 function run(){
 	#echo "ok"
  setup "sudo mv oi oi" "2" "2x"
+ sleep 5
 	setup "sudo apt update -y" "2" "2x"
 }
 
