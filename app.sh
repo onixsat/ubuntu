@@ -168,7 +168,6 @@ function iniciar(){
 
 
 
-
 iniciar
 read -n 1 -r -s -p "Press any key to continue..."
 clear
