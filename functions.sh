@@ -73,5 +73,3 @@ echo_warning() {
     echo -ne "\r"
     return 1
 }
-
-pause
