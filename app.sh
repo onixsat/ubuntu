@@ -196,10 +196,11 @@ read -n 1 -r -s -p "Press any key to continue..."
 clear
 
 
-step "Ligar localhost:"
-    try sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
-    try sudo iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
+step "Update:"
+    #try sudo apt update -y
+    #try sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+    #try sudo iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
     #try sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-port 80
     #try sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8080
-    esperar "sleep 5" "${WHITE}Atualizando4..." " ${WHITE} Atualizado4!"
+    esperar "try sudo apt update -y" "Atualizando..." " ${WHITE} Atualizado!"
 next
