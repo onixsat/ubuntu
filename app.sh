@@ -119,7 +119,7 @@ function esperar(){
     sleep $delay
   done
 
-  echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
+  echo "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
 
 #echo -e ""
 #  printf " \b\n"
