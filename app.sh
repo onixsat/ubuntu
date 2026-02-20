@@ -6,15 +6,16 @@
 #sudo dpkg --configure -a
 
 step() {
-    start_time2=$(date +%s%3N)
-    start_loading "Carregando..."
-    
     echo -n "$@"
 
     STEP_OK=0
     [[ -w /tmp ]] && echo $STEP_OK > /tmp/step.$$
 }
 try() {
+
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
+    
     # Check for `-b' argument to run command in the background.
     local BG=
 
@@ -43,6 +44,11 @@ try() {
         fi
     fi
 
+    stop_loading $?
+    end_time2=$(date +%s%3N)
+    duration_ms2=$((end_time2 - start_time2))
+    echo "Execution: $duration_ms2"
+    
     return $EXIT_CODE
 }
 next() {
@@ -50,29 +56,23 @@ next() {
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
     echo
     
-    stop_loading $?
-    end_time2=$(date +%s%3N)
-    duration_ms2=$((end_time2 - start_time2))
-    echo "Execution: $duration_ms2"
-    echo
-    
     return $STEP_OK
 }
 function instalar(){
-	
+	echo "ok"
     step "Carregar1:"
     try sudo apt update -y
     next
     
     read -n 1 -r -s -p "Press any key to continue function instalar 1..."
-    clear
+
     
     step "Carregar2:"
     try sudo apt install dos2unix -y
     next
     
     read -n 1 -r -s -p "Press any key to continue function instalar 2..."
-    clear
+
     #read -n 1 -r -s -p "Press any key to continue..."
     
     #apt install nginx nginx-full -y >/dev/null 2>&1 &
