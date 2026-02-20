@@ -140,18 +140,23 @@ echo "All jobs completed."
 function instalar(){
 	
     check sudo apt update -y
+	read -n 1 -r -s -p "Press X..."
+	check php -v
 }
  esperar instalar "Instalando..." " ${WHITE} Instalado!"
- 
+
+read -n 1 -r -s -p "Press 0..."
+clear
+
 setup "sudo mv oi oi" "kkkk" "xxxxxxx"
 
-run
+#run
 
 #iniciar
-read -n 1 -r -s -p "Press any key to continue..."
+read -n 1 -r -s -p "Press any key to continue1..."
 clear
 esperar iniciar "Instalando..." " ${WHITE} Instalado!"
-read -n 1 -r -s -p "Press any key to continue..."
+read -n 1 -r -s -p "Press any key to continue2..."
 clear
 
 esperar instalar "Instalando..." " ${WHITE} Instalado!"
