@@ -60,16 +60,15 @@ next() {
 }
 function instalar(){
 	echo "ok"
-    step "Carregar1:"
-    try sudo apt update -y
-    next
+    sudo apt update -y
+
     
     read -n 1 -r -s -p "Press any key to continue function instalar 1..."
 
     
-    step "Carregar2:"
-    try sudo apt install dos2unix -y
-    next
+#    step "Carregar2:"
+    sudo apt install dos2unix -y
+ #   next
     
     read -n 1 -r -s -p "Press any key to continue function instalar 2..."
 
@@ -120,7 +119,8 @@ function instalar(){
 
 }
 function esperar(){
-		
+    start_time2=$(date +%s%3N)
+    start_loading "Carregando..."
   # Executar e esperar
   # Run the command passed as 1st argument and shows the spinner until this is done
   # @param String $1 the command to run
@@ -158,17 +158,26 @@ function esperar(){
   done
 
   echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
-echo -e ""
-  #printf " \b\n"
-  # Wait the command to be finished, this is needed to capture its exit status
-  #wait $!
-  #exitCode=$?
-  #if [ "$exitCode" -eq "0" ]; then
-  #  printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
-  #else
-  #  printf "${X_SYMBOL} ${2}                                                                \b\n"
-  #fi
+read -n 1 -r -s -p "Press 1..."
 
+echo -e ""
+  printf " \b\n"
+  # Wait the command to be finished, this is needed to capture its exit status
+  wait $!
+  exitCode=$?
+  if [ "$exitCode" -eq "0" ]; then
+    echo_success
+    printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
+  else
+    echo_failure
+    printf "${X_SYMBOL} ${2}                                                                \b\n"
+  fi
+
+    stop_loading $?
+    end_time2=$(date +%s%3N)
+    duration_ms2=$((end_time2 - start_time2))
+    echo "Execution: $duration_ms2"
+  
   # Restore the cursor
   #tput cnorm
   #eval $__resultvar=$exitCode
@@ -189,13 +198,18 @@ function iniciar(){
     echo "Sleep finished with exit code $?"
     echo done
 }
+iniciar
+read -n 1 -r -s -p "Press any key to continue0..."
+clear
 
 esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 
 read -n 1 -r -s -p "Press any key to continue1..."
 clear
 
-instalar
+step "Carregar1:"
+    try instalar
+next
 
 read -n 1 -r -s -p "Press any key to continue2..."
 clear
