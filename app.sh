@@ -130,7 +130,7 @@ function esperar(){
   CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
   CHECK_SYMBOL='\u2713'
   X_SYMBOL='\u2A2F'
-  local __resultvar=$3
+  #local __resultvar=$3
   local done=${3:-'Atualizado'}
   local msg=$2
 
@@ -159,19 +159,19 @@ function esperar(){
 
   echo -e "\b\\r${CHECK_MARK}${CINZA} ${done}!   "
 echo -e ""
-  printf " \b\n"
+  #printf " \b\n"
   # Wait the command to be finished, this is needed to capture its exit status
-  wait $!
-  exitCode=$?
-  if [ "$exitCode" -eq "0" ]; then
-    printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
-  else
-    printf "${X_SYMBOL} ${2}                                                                \b\n"
-  fi
+  #wait $!
+  #exitCode=$?
+  #if [ "$exitCode" -eq "0" ]; then
+  #  printf "${CHECK_SYMBOL} ${2}                                                                \b\n"
+  #else
+  #  printf "${X_SYMBOL} ${2}                                                                \b\n"
+  #fi
 
   # Restore the cursor
-  tput cnorm
-  eval $__resultvar=$exitCode
+  #tput cnorm
+  #eval $__resultvar=$exitCode
 }
 function iniciar(){
     echo Starting sleep
@@ -190,18 +190,21 @@ function iniciar(){
     echo done
 }
 
-esperar "sudo apt update -y" "${WHITE}Instalando..." " ${WHITE} Instalado!"
-read -n 1 -r -s -p "Press any key to continue..."
 esperar instalar "${WHITE}Instalando..." " ${WHITE} Instalado!"
 
-read -n 1 -r -s -p "Press any key to continue..."
+read -n 1 -r -s -p "Press any key to continue1..."
+clear
+
+instalar
+
+read -n 1 -r -s -p "Press any key to continue2..."
+clear
 
 step "Update:"
     try sudo apt update -y
 next
 
-read -n 1 -r -s -p "Press any key to continue..."
+read -n 1 -r -s -p "Press any key to continue3..."
+clear
 
-step "Update:"
-esperar "try sudo apt update -y" "Esperar" " Atualizado!"
-next
+esperar "sudo apt update -y" "Esperar" " Atualizado!"
