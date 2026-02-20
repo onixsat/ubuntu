@@ -131,7 +131,7 @@ next
 
 
 step "etapa4"
-try sudo apt update -b
-try sudo mv oi oi -b
-try sudo apt install curl -b
+try -b sudo apt update
+try -b sudo mv oi oi
+try sudo apt install curl
 next
