@@ -92,7 +92,7 @@ function add(){
     arg3=$3
 
     step "${arg1}"
-        if [ -z "$arg3" ]
+        if [ -z "$arg3" ] then
             try ${arg2} >/dev/null 2>&1 &
         else         
            try ${arg2}
