@@ -49,9 +49,8 @@ echo -e "Execution: $duration_ms2"
 echo "app1"
 check_previous "sudo apt update"
 echo "app2"
-sudo apt update
 check_previous "sudo apt update"
 echo "app3"
-ls - l
 check_previous "ls"
-
+echo "app4"
+check_previous "ls - l"
