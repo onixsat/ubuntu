@@ -37,10 +37,10 @@ function check_previous {
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         
-        echo "$1 Execution: $duration_ms2"
+        echo -e "$1 Execution: $duration_ms2"
         echo_success
         else
-        echo "$1: failed"
+        echo -e "$1: failed"
         echo_failure
         fi
 
@@ -48,7 +48,9 @@ function check_previous {
 
 echo "wwe"
 check_previous "echo"
-
+echo "oi"
 check_previous "sudo apt update"
 ls - l
 check_previous "ls"
+sudo apt update
+check_previous "sudo"
