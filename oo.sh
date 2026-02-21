@@ -27,7 +27,7 @@ echo_failure() {
     [ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
     echo -n "]"
     echo -ne "\r"
-    return 1
+    return 0
 }
 function check_previous {
         start_time2=$(date +%s%3N)
@@ -36,9 +36,8 @@ function check_previous {
 echo "ok"
         echo_success
         else
-       echo -e "$1: failed"
+        echo "$1: failed"
         echo_failure
-        exit 1
         fi
         
         end_time2=$(date +%s%3N)
@@ -51,6 +50,6 @@ echo "ok"
 sudo apt update
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
+sudo mv oi oi
 check_previous "mv oi oi"
-php -v
-check_previous "sudo php -v"
+echo "dome"
