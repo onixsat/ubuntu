@@ -129,8 +129,8 @@ try apt update
 next
 
 step "Configuring udev:"
-try cp *.rules /etc/udev/rules.d
-try udevtrigger
+try ls
+try sudo nano oi.txt
 next
 
 step "Adding rc.postsysinit hook:"
