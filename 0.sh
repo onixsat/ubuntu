@@ -101,19 +101,19 @@ function add(){
 add "Atualizar" "sudo apt update" "1"
 read -n 1 -s -p "Press any key to continue 1"
 
-add "Atualizar" "sudo apt update"
-read -n 1 -s -p "Press any key to continue 2"
+#add "Atualizar" "sudo apt update"
+#read -n 1 -s -p "Press any key to continue 2"
 
-#add "Instalar dnf" "sudo apt install dnf" "1"
-#read -n 1 -s -p "Press any key to continue 3"
+add "Instalar dnf" "sudo apt install dnf" "1"
+read -n 1 -s -p "Press any key to continue 3"
 
-#add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
-#read -n 1 -s -p "Press any key to continue 4 "
+add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
+read -n 1 -s -p "Press any key to continue 4 "
 
-#add "Instalar nginx" "sudo apt install nginx nginx-full -y" 
+add "Instalar nginx" "sudo apt install nginx nginx-full -y" "1"
 
-#add "Instalar ufw" "sudo apt install ufw -y" "1"
-#add "Instalar iptables" "sudo apt install iptables-persistent -y" "1"
+add "Instalar ufw" "sudo apt install ufw -y" "1"
+add "Instalar iptables" "sudo apt install iptables-persistent -y" "1"
 
 step "Ficheiro data.txt"
     try echo 'This is a test' > data.txt
