@@ -100,28 +100,12 @@ function add(){
     next
 
 }
-add "Atualizar" "sudo apt update" "null"
-
-add "Instalar dnf" "sudo apt install dnf" "null"
-add "Instalar initscripts" "sudo apt dnf install -y initscripts" "null"
-
+add "Atualizar" "sudo apt update" "1"
+add "Instalar dnf" "sudo apt install dnf" "1"
 #read -n 1 -s -p "Press any key to continue 1"
-
-add "Atualizar" "sudo apt update"
-
+add "Instalar: dos2unix" "sudo apt install dos2unix -y" "1"
 #read -n 1 -s -p "Press any key to continue 2 "
-
-step "Atualizar:"
-    try sudo apt update >/dev/null 2>&1 &
-next
-
-step "Instalar: dos2unix"
-    try sudo apt install dos2unix -y >/dev/null 2>&1 &
-next
-
-step "Instalar: nginx"
-    try sudo apt install nginx nginx-full -y >/dev/null 2>&1 &
-next
+add "Instalar: nginx" "sudo apt install nginx nginx-full -y" >/dev/null 2>&1 &
 
 step "Instalar: Firewalls"
     try sudo apt install ufw -y >/dev/null 2>&1 &
