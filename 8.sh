@@ -1,5 +1,5 @@
 #!/bin/bash
-. /etc/init.d/functions
+#. ./etc/init.d/functions
 BOOTUP=color
 RES_COL=60
 MOVE_TO_COL="echo -en \\033[${RES_COL}G"
@@ -92,7 +92,7 @@ function add(){
     arg3=$3
 
     step "${arg1}"
-        if [ -z "$arg3" ]; then
+        if [ $arg3 -eq 0 ]; then
             try ${arg2} >/dev/null 2>&1 &
         else         
            try ${arg2}
@@ -101,19 +101,24 @@ function add(){
 
 }
 add "Atualizar" "sudo apt update" "1"
+read -n 1 -s -p "Press any key to continue 1"
+
+add "Atualizar" "sudo apt update"
+read -n 1 -s -p "Press any key to continue 2"
+
 add "Instalar dnf" "sudo apt install dnf" "1"
-#read -n 1 -s -p "Press any key to continue 1"
-add "Instalar: dos2unix" "sudo apt install dos2unix -y" "1"
-#read -n 1 -s -p "Press any key to continue 2 "
-add "Instalar: nginx" "sudo apt install nginx nginx-full -y" >/dev/null 2>&1 &
+read -n 1 -s -p "Press any key to continue 3"
 
-step "Instalar: Firewalls"
-    try sudo apt install ufw -y >/dev/null 2>&1 &
-    try sudo apt install iptables-persistent -y >/dev/null 2>&1 &
-next
+add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
+read -n 1 -s -p "Press any key to continue 4 "
 
-step "Instalar: Firewalls"
+add "Instalar nginx" "sudo apt install nginx nginx-full -y" 
+
+add "Instalar ufw" "sudo apt install ufw -y" "1"
+add "Instalar iptables" "sudo apt install iptables-persistent -y" "1"
+
+step "Ficheiro data.txt"
     try echo 'This is a test' > data.txt
-    try mv file.txt data.txt
+    #try mv file.txt data.txt
     try echo 'yet another line' >> data.txt
 next
