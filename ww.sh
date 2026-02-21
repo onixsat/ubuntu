@@ -33,10 +33,10 @@ function check_previous {
         start_time2=$(date +%s%3N)
         RESULT=$?
         if [ $RESULT -eq 0 ]; then
-
+echo "ok"
         echo_success
         else
-       # echo -e "$1: failed"
+       echo -e "$1: failed"
         echo_failure
         fi
         
@@ -51,4 +51,5 @@ function check_previous {
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
 check_previous "mv oi oi"
-check_previous "php -v"
+php -v
+check_previous "sudo php -v"
