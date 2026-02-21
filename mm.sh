@@ -37,20 +37,16 @@ function check_previous {
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         
-        echo "$1: sucesso"
+        echo -e "Execution $duration_ms2: $1"
         echo_success
         else
         echo "$1: failed"
         echo_failure
         fi
-echo -e "Execution: $duration_ms2"
 }
 
-echo "app1"
+
 check_previous "sudo apt update"
-echo "app2"
-check_previous "sudo apt update"
-echo "app3"
+check_previous "sudo apt install curl"
 check_previous "ls"
-echo "app4"
 check_previous "ls - l"
