@@ -38,6 +38,7 @@ echo "ok"
         else
        echo -e "$1: failed"
         echo_failure
+        exit 1
         fi
         
         end_time2=$(date +%s%3N)
@@ -47,7 +48,7 @@ echo "ok"
     
 }
 
-
+sudo apt update
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
 check_previous "mv oi oi"
