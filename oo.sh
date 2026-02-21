@@ -37,7 +37,7 @@ echo "ok"
         echo_success
         else
         echo "$1: failed"
-        echo_failure
+      #  echo_failure
         fi
         
         end_time2=$(date +%s%3N)
@@ -51,5 +51,5 @@ sudo apt update
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
 sudo mv oi oi
-check_previous "mv oi oi"
+check_previous "ls"
 echo "dome"
