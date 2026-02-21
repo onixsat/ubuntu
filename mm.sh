@@ -34,16 +34,17 @@ function check_previous {
         RESULT=$?
         if [ $RESULT -eq 0 ]; then
 
+        echo_success
+        else
+       # echo -e "$1: failed"
+        echo_failure
+        fi
+        
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         
-        echo ""
-        echo_success
-        echo -e "Execution $duration_ms2: $1"
-        else
-        echo -e "$1: failed"
-        echo_failure
-        fi
+    echo -e "Execution $duration_ms2: $1"
+    
 }
 
 
