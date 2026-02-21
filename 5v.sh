@@ -86,12 +86,13 @@ next() {
     return $STEP_OK
 }
 
-add(){
+function add(){
     arg1=$1
     arg2=$2
+    arg3=$3
 
     step "${arg1}"
-        if [ $3 -eq 0 ]; then
+        if [ -z "$arg3" ]
             try ${arg2} >/dev/null 2>&1 &
         else         
            try ${arg2}
@@ -100,9 +101,13 @@ add(){
 
 }
 add "Atualizar" "sudo apt update" "null"
+
 read -n 1 -s -p "Press any key to continue 1"
+
 add "Atualizar" "sudo apt update"
+
 read -n 1 -s -p "Press any key to continue 2 "
+
 step "Atualizar:"
     try sudo apt update >/dev/null 2>&1 &
 next
