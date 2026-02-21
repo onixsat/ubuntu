@@ -50,5 +50,5 @@ function check_previous {
 
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
-check_previous "ls"
-check_previous "ls - l"
+check_previous "mv oi oi"
+check_previous "php -v"
