@@ -82,23 +82,21 @@ try() { # Check for `-b' argument to run command in the background.
 next() {
     [[ -f /tmp/step.$$ ]] && { STEP_OK=$(< /tmp/step.$$); rm -f /tmp/step.$$; }
     [[ $STEP_OK -eq 0 ]]  && echo_success || echo_failure
-    echo
+    echo -e ""
     return $STEP_OK
 }
 
 function add(){
     arg1=$1
     arg2=$2
-    arg3=$3
-
     step "${arg1}"
-        if [ $arg3 -eq 0 ]; then
+        if [[ $3 != '' ]]; then
             try ${arg2} >/dev/null 2>&1 &
         else         
            try ${arg2}
         fi
     next
-
+    
 }
 add "Atualizar" "sudo apt update" "1"
 read -n 1 -s -p "Press any key to continue 1"
@@ -106,16 +104,16 @@ read -n 1 -s -p "Press any key to continue 1"
 add "Atualizar" "sudo apt update"
 read -n 1 -s -p "Press any key to continue 2"
 
-add "Instalar dnf" "sudo apt install dnf" "1"
-read -n 1 -s -p "Press any key to continue 3"
+#add "Instalar dnf" "sudo apt install dnf" "1"
+#read -n 1 -s -p "Press any key to continue 3"
 
-add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
-read -n 1 -s -p "Press any key to continue 4 "
+#add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
+#read -n 1 -s -p "Press any key to continue 4 "
 
-add "Instalar nginx" "sudo apt install nginx nginx-full -y" 
+#add "Instalar nginx" "sudo apt install nginx nginx-full -y" 
 
-add "Instalar ufw" "sudo apt install ufw -y" "1"
-add "Instalar iptables" "sudo apt install iptables-persistent -y" "1"
+#add "Instalar ufw" "sudo apt install ufw -y" "1"
+#add "Instalar iptables" "sudo apt install iptables-persistent -y" "1"
 
 step "Ficheiro data.txt"
     try echo 'This is a test' > data.txt
