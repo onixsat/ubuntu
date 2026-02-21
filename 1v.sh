@@ -125,7 +125,7 @@ next() {
 
 
 step "Installing XFS filesystem tools:"
-try rpm -i xfsprogs-*.rpm
+try apt update
 next
 
 step "Configuring udev:"
