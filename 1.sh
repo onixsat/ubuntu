@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. ./globais.sh
 step() {
     echo -n "$@"
     STEP_OK=0
@@ -40,6 +40,8 @@ next() {
 }
 
 function add(){
+    start_time2=$(date +%s%3N)
+    
     arg1=$1
     arg2=$2
     step "${arg1}"
@@ -50,18 +52,21 @@ function add(){
         fi
     next
     
+    end_time2=$(date +%s%3N)
+    duration_ms2=$((end_time2 - start_time2))
+    echo -e "Execution: $duration_ms2"
 }
 add "Atualizar" "sudo apt update" "1"
-read -n 1 -s -p "Press any key to continue 1"
+#read -n 1 -s -p "Press any key to continue 1"
 
 #add "Atualizar" "sudo apt update"
 #read -n 1 -s -p "Press any key to continue 2"
 
 add "Instalar dnf" "sudo apt install dnf" "1"
-read -n 1 -s -p "Press any key to continue 3"
+#read -n 1 -s -p "Press any key to continue 3"
 
 add "Instalar dos2unix" "sudo apt install dos2unix -y" "1"
-read -n 1 -s -p "Press any key to continue 4 "
+#read -n 1 -s -p "Press any key to continue 4 "
 
 add "Instalar nginx" "sudo apt install nginx nginx-full -y" "1"
 
