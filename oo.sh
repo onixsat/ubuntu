@@ -35,21 +35,23 @@ function check_previous {
         if [ $RESULT -eq 0 ]; then
 echo "ok"
         echo_success
-        else
-        echo "$1: failed"
-      #  echo_failure
-        fi
-        
         end_time2=$(date +%s%3N)
         duration_ms2=$((end_time2 - start_time2))
         
     echo -e "Execution $duration_ms2: $1"
     
+        else
+        echo "$1: failed"
+      #  echo_failure
+      exit 1
+        fi
+        
+
 }
 
 sudo apt update
 check_previous "sudo apt update"
 check_previous "sudo apt install curl"
-sudo mv oi oi
-check_previous "ls"
+#sudo mv oi oi
+check_previous "sudo cp oi oi"
 echo "dome"
