@@ -105,6 +105,6 @@ next
 
 step "Instalar: Firewalls"
     try echo 'This is a test' > data.txt
-    try mv file.txt data.txt >/dev/null 2>&1 &
+    try mv file.txt data.txt
     try echo 'yet another line' >> data.txt
 next
